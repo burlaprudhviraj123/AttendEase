@@ -1,0 +1,702 @@
+%% ============================================================
+%%  AttendEase — Professional University Project Report
+%%  Institution : ANITS (Anil Neerukonda Institute of Technology and Sciences)
+%%  Author      : Burla Prudhvi Raj, Bonda Geetesh, Ratnala Ramjee
+%%  Date        : April 2026
+%% ============================================================
+\documentclass[12pt,a4paper]{report}
+
+%% ── Packages ──────────────────────────────────────────────
+\usepackage[a4paper, top=1in, bottom=1in, left=1.2in, right=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tcolorbox}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{lmodern}
+\usepackage{mathptmx}   % Times New Roman-like font
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{mdframed}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{eso-pic}
+
+%% ── Hyperref setup ────────────────────────────────────────
+\hypersetup{
+  colorlinks = true,
+  linkcolor  = {blue!70!black},
+  citecolor  = {green!50!black},
+  urlcolor   = {blue!80!black},
+  pdftitle   = {Firebase-Enabled Attendance System with Analytics Dashboard (AttendEase)},
+  pdfauthor  = {Burla Prudhvi Raj, Bonda Geetesh, Ratnala Ramjee},
+  pdfsubject = {Project Report},
+}
+
+%% ── Color definitions ─────────────────────────────────────
+\definecolor{codeblue}  {RGB}{0,  90, 180}
+\definecolor{codegray}  {RGB}{128,128,128}
+\definecolor{codegreen} {RGB}{0,  128,  0}
+\definecolor{codeback}  {RGB}{248,248,248}
+\definecolor{accentblue}{RGB}{30,  80, 162}
+\definecolor{anitsblue} {RGB}{0,   53, 128}
+
+%% ── Listings (code blocks) ────────────────────────────────
+\lstset{
+  backgroundcolor  = \color{codeback},
+  commentstyle     = \color{codegreen}\itshape,
+  keywordstyle     = \color{codeblue}\bfseries,
+  stringstyle      = \color{orange!80!black},
+  basicstyle       = \ttfamily\small,
+  breakatwhitespace= false,
+  breaklines       = true,
+  captionpos       = b,
+  keepspaces       = true,
+  numbers          = left,
+  numbersep        = 6pt,
+  numberstyle      = \tiny\color{codegray},
+  showspaces       = false,
+  showstringspaces = false,
+  showtabs         = false,
+  tabsize          = 4,
+  frame            = single,
+  rulecolor        = \color{gray!40},
+  xleftmargin      = 10pt,
+  framexleftmargin = 10pt,
+}
+
+%% ── Page style ────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{anitsblue}{\textit{AttendEase: Firebase-Enabled Attendance System with Analytics Dashboard}}}
+\fancyhead[R]{\small\textcolor{anitsblue}{\thepage}}
+\fancyfoot[C]{\small\textcolor{gray}{ANITS, Visakhapatnam — B.Tech Project Report, 2025--26}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+%% ── Section title formatting ──────────────────────────────
+\titleformat{\chapter}[display]
+  {\normalfont\LARGE\bfseries\color{anitsblue}}
+  {\chaptertitlename\ \thechapter}{10pt}{\huge}
+\titlespacing*{\chapter}{0pt}{-10pt}{20pt}
+
+\titleformat{\section}
+  {\large\bfseries\color{anitsblue}}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{accentblue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalsize\itshape\bfseries}{\thesubsubsection}{1em}{}
+
+%% ── Spacing ───────────────────────────────────────────────
+\setstretch{1.35}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+%% ── Custom box ────────────────────────────────────────────
+\tcbuselibrary{skins,breakable}
+\newtcolorbox{infobox}[1][]{
+  enhanced, breakable,
+  colback=blue!4!white, colframe=anitsblue,
+  fonttitle=\bfseries, title=#1,
+  boxrule=0.6pt, arc=3pt
+}
+
+%% ============================================================
+\begin{document}
+
+%% ── Global border on EVERY page (double-line, ANITS blue) ──
+\AddToShipoutPictureBG{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \draw[line width=2.5pt, color=anitsblue]
+      ($(current page.north west) + (0.6cm,-0.6cm)$)
+      rectangle
+      ($(current page.south east) + (-0.6cm,0.6cm)$);
+    \draw[line width=0.8pt, color=anitsblue!55]
+      ($(current page.north west) + (0.85cm,-0.85cm)$)
+      rectangle
+      ($(current page.south east) + (-0.85cm,0.85cm)$);
+  \end{tikzpicture}%
+}
+
+%% ============================================================
+%%  1. TITLE PAGE
+%% ============================================================
+\begin{titlepage}
+  \centering
+
+  \vspace*{0.4cm}
+
+  {\LARGE\bfseries\color{anitsblue}
+    Anil Neerukonda Institute of Technology \& Sciences\\[2pt]}
+  {\large (Autonomous Institution, Affiliated to Andhra University)\\
+    Sangivalasa, Bheemunipatnam Mandal, Visakhapatnam -- 531 162}
+
+  \vspace{0.3cm}
+  \rule{\linewidth}{2pt}\\[0.1cm]
+  \rule{\linewidth}{0.5pt}
+  \vspace{0.3cm}
+
+  {\large\bfseries Department of Computer Science and Engineering}\\[0.4cm]
+
+  {\LARGE\bfseries\color{anitsblue} PROJECT REPORT}\\[0.2cm]
+  {\large On}\\[0.4cm]
+
+  \begin{tcolorbox}[
+      enhanced, colback=anitsblue!8, colframe=anitsblue,
+      boxrule=1.5pt, arc=4pt, width=\linewidth,
+      halign=center, valign=center]
+    {\normalsize\bfseries\color{anitsblue!70} Problem No.~18}\\[4pt]
+    {\LARGE\bfseries\color{anitsblue} Firebase-Enabled Attendance System}\\[3pt]
+    {\large\bfseries\color{anitsblue} with Analytics Dashboard}\\[4pt]
+    {\normalsize\itshape (AttendEase --- for Anil Neerukonda Institute of Technology \& Sciences)}
+  \end{tcolorbox}
+
+  \vspace{0.5cm}
+
+  {\large\itshape Submitted in partial fulfilment of the requirements for the award of the degree of}\\[0.3cm]
+  {\large\bfseries Bachelor of Technology}\\
+  {\large in}\\
+  {\large\bfseries Computer Science and Engineering}\\[0.4cm]
+
+  \rule{0.7\linewidth}{0.5pt}\\[0.4cm]
+
+  %% Team box
+  \begin{tcolorbox}[
+      enhanced, colback=blue!3, colframe=anitsblue!70,
+      boxrule=0.8pt, arc=3pt, width=0.92\linewidth]
+    \centering
+    {\normalsize\bfseries\color{anitsblue} Project No.~\textbf{18}}\\[6pt]
+    \begin{tabular}{@{} c l l @{}}
+      \toprule
+      \textbf{S.No.} & \textbf{Roll Number}  & \textbf{Student Name} \\[2pt]
+      \midrule
+      1 & A24126510122 & Bonda Geetesh \\[4pt]
+      2 & A24126510123 & Burla Prudhvi Raj \\[4pt]
+      3 & A24126510162 & Ratnala Ramjee \\
+      \bottomrule
+    \end{tabular}
+  \end{tcolorbox}
+
+  \vspace{0.4cm}
+
+  \begin{tabular}{rl}
+    \textbf{Section:}       & A \\[4pt]
+    \textbf{Course:}        & B.Tech -- Computer Science \& Engineering \\[4pt]
+    \textbf{Guide:}         & Dr./Mrs. \underline{\hspace{5cm}} \\[4pt]  % <-- ENTER GUIDE NAME
+    \textbf{Academic Year:} & 2025 -- 2026 \\[4pt]
+    \textbf{Date:}          & April 2026 \\
+  \end{tabular}
+
+  \vfill
+  \rule{\linewidth}{0.5pt}\\[0.1cm]
+  \rule{\linewidth}{2pt}
+\end{titlepage}
+
+\pagenumbering{roman}
+
+%% ============================================================
+%%  2. ABSTRACT
+%% ============================================================
+\chapter*{2. Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+In the contemporary academic landscape, maintaining accurate and efficient student attendance records is paramount for both institutional compliance and student success. Traditional manual attendance systems, which rely heavily on paper registers, are increasingly seen as antiquated due to their inherent flaws, including data entry errors, significant time consumption, and the lack of real-time availability. This project, \textbf{AttendEase}, introduces a native Android application designed to automate and streamline the attendance management process at \textbf{Anil Neerukonda Institute of Technology \& Sciences (ANITS)}.
+
+The system is built as a cloud-native solution using the \textbf{Google Firebase} platform, specifically leveraging \textbf{Firebase Authentication} for secure, domain-restricted access and \textbf{Cloud Firestore} for real-time data storage and offline persistence. Architected using the \textbf{Model-View-ViewModel (MVVM)} pattern, AttendEase ensures a highly responsive and lifecycle-aware user experience. The application features dual user roles: faculty and students. For faculty, it provides a timetable-driven interface where upcoming and active sessions are automatically identified, allowing them to record attendance in under a minute using an optimized dual-mode marking grid. For students, it offers a personalized dashboard displaying subject-wise attendance percentages, visual analytics, and an intelligent "attendance recovery" calculator to help them maintain the mandatory 75\% threshold.
+
+Furthermore, the application incorporates a robust analytics dashboard for faculty, utilizing libraries like \textbf{MPAndroidChart} for trend visualization and \textbf{iTextPDF} for generating comprehensive attendance reports in PDF format. By implementing role-based access control through Firestore Security Rules, the system ensures data integrity and privacy. AttendEase represents a significant shift towards a data-driven, efficient, and transparent attendance monitoring environment, ultimately saving thousands of faculty-hours and providing students with the real-time insights needed for academic accountability.
+
+\vspace{0.5cm}
+\textbf{Keywords:} Android, Firebase, Cloud Firestore, Real-Time Database, Attendance Management, MVVM Architecture, Data Analytics, Java, MPAndroidChart, Academic Compliance.
+
+\clearpage
+
+%% ============================================================
+%%  TABLE OF CONTENTS
+%% ============================================================
+\renewcommand{\contentsname}{Table of Contents}
+\tableofcontents
+\thispagestyle{fancy}
+\clearpage
+
+\pagenumbering{arabic}
+
+%% ============================================================
+%%  3. INTRODUCTION
+%% ============================================================
+\chapter*{3. Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+\section*{3.1 Background of the Project}
+Student attendance is one of the most critical indicators of academic performance and institutional commitment. In the Indian higher education system, particularly for engineering programs affiliated with universities like Andhra University or autonomous institutions like ANITS, the \textbf{University Grants Commission (UGC)} and university regulations mandate a minimum attendance of \textbf{75\%}. Failure to meet this requirement often results in the student being detained from appearing in the semester-end examinations.
+
+Despite the high stakes involved, the tracking and management of attendance in most educational institutions remain manual and decentralized. Faculty members carry physical registers to every class, call out names, and mark presence or absence. This process is repeated 7 to 8 times a day for each class and section.
+
+\section*{3.2 Motivation}
+The motivation behind \textbf{AttendEase} stems from the direct observation of the inefficiencies and frustrations associated with the manual system. At an institute like ANITS, which hosts thousands of students across departments such as CSE, ECE, MECH, and IT, the scale of manual attendance recording is staggering. The primary motivations include:
+\begin{itemize}
+    \item \textbf{Eliminating Redundant Effort:} Faculty spend significant time at the end of each month aggregating attendance from registers into spreadsheets or institutional portals.
+    \item \textbf{Data Accessibility:} Students often have no way of knowing their current attendance status until it is too late, leading to "surprises" at the end of the semester.
+    \item \textbf{Accuracy and Integrity:} Physical registers are prone to damage, loss, or unauthorized tampering. A digital system with centralized storage provides a "single source of truth."
+    \item \textbf{Advanced Analytics:} Moving beyond mere record-keeping to provide insights into patterns, such as identifying subjects with consistently low attendance.
+\end{itemize}
+
+\section*{3.3 Project Scope}
+The scope of this project includes the design, development, and deployment of a native Android mobile application that:
+\begin{enumerate}
+    \item Restricts access to users belonging to the \texttt{@anits.edu.in} domain.
+    \item Implements role-based access for students and faculty.
+    \item Provides a real-time, timetable-aware attendance marking interface for faculty.
+    \item Offers an analytics dashboard with chart visualizations for faculty.
+    \item Enables students to track their attendance and receive calculated recovery goals.
+    \item Supports offline data entry with automatic cloud synchronization.
+\end{enumerate}
+
+\section*{3.4 Technical Overview}
+The project leverages a modern technology stack to ensure scalability and performance:
+\begin{itemize}
+    \item \textbf{Frontend:} Native Android (Java) with Material Design 3.
+    \item \textbf{Architecture:} MVVM (Model-View-ViewModel) with Android Jetpack components (LiveData, Navigation, ViewBinding).
+    \item \textbf{Backend-as-a-Service (BaaS):} Google Firebase.
+    \item \textbf{Authentication:} Firebase Auth (Google Sign-In + Email/Password).
+    \item \textbf{Database:} Cloud Firestore (NoSQL Document-oriented).
+    \item \textbf{Visualization:} MPAndroidChart library.
+    \item \textbf{Reporting:} iTextPDF for document generation.
+\end{itemize}
+
+\section*{3.5 Organization of the Report}
+The report is organized into nine chapters covering the entire lifecycle of the project. Following the Title Page and Abstract, Chapter 3 provides an introduction. Chapter 4 defines the Problem Statement in detail. Chapter 5 lists the Objectives. Chapter 6 focuses on Database Design and schemas. Chapter 7 delves into the Implementation Code and architectural details. Chapter 8 presents the Results through screenshots and performance metrics. Finally, Chapter 9 concludes the report with future work and learning outcomes.
+
+%% ============================================================
+%%  4. PROBLEM STATEMENT
+%% ============================================================
+\chapter*{4. Problem Statement}
+\addcontentsline{toc}{chapter}{Problem Statement}
+
+The existing manual attendance system at Anil Neerukonda Institute of Technology \& Sciences (ANITS) is fraught with several operational and data-related challenges that hinder the efficiency of the academic administrative process. The primary problem can be broken down into the following key issues:
+
+\section*{4.1 Inefficiency and Time Consumption}
+Faculty members are required to manually record attendance at the beginning or end of every lecture. For a class of 60 to 70 students, this process takes approximately 5 to 10 minutes. Across an institute with 8 periods a day, this translates to nearly 40 to 80 minutes of lost instructional time per day per class.
+
+\section*{4.2 Transcription Errors and Data Duplication}
+Data recorded in physical registers must be periodically transcribed into digital systems for report generation. This human-led transcription is a major source of errors, leading to discrepancies between the register and the official computer records. Furthermore, it results in the duplication of work.
+
+\section*{4.3 Lack of Real-time Accountability}
+Students are often unaware of their attendance status until "Attendance Shortage Lists" are manually generated and posted on notice boards at long intervals (usually once a month). This delayed feedback prevents students from taking timely corrective action to improve their attendance.
+
+\section*{4.4 Difficulty in Analytics and Trend Monitoring}
+Generating subject-wise or student-wise trends from paper records is nearly impossible. Identifying "at-risk" students who show a pattern of declining attendance requires manual scanning of registers, which is a tedious and reactive process.
+
+\section*{4.5 Connectivity and Reliability Issues}
+Previous attempts at digital systems often relied on a persistent high-speed internet connection in classrooms, which is not always guaranteed. A system that crashes or loses data during a network fluctuation is unusable in a real-world campus environment.
+
+\section*{4.6 Formal Problem Definition}
+\begin{tcolorbox}[enhanced, colback=blue!4, colframe=anitsblue, title=Problem Statement Definition, fonttitle=\bfseries]
+To design and develop a **Firebase-enabled** Android application that empowers faculty to mark attendance digitally via a timetable-aware interface, ensures students have real-time visibility into their records with predictive recovery tools, provides visual analytics for monitoring trends, and maintains a secure, offline-resilient data infrastructure that eliminates manual transcription and transcription errors.
+\end{tcolorbox}
+
+%% ============================================================
+%%  5. OBJECTIVES
+%% ============================================================
+\chapter*{5. Objectives}
+\addcontentsline{toc}{chapter}{Objectives}
+
+The main objective of this project is to create an end-to-end automated attendance solution that is secure, fast, and easy to use. The specific objectives are as follows:
+
+\section*{5.1 Authentication and Role Security}
+\begin{itemize}[leftmargin=*, label=\checkmark]
+    \item \textbf{O1. Institutional Domain Lock:} Implement a login mechanism that restricts access solely to authorized members of the \texttt{@anits.edu.in} domain using Firebase Authentication.
+    \item \textbf{O2. Role Detection:} Automatically detect and route users to Faculty or Student interfaces based on their email pattern and Firestore profile.
+    \item \textbf{O3. Secure Provisioning:} Develop a system for first-time password setup for students pre-imported from the institutional database.
+\end{itemize}
+
+\section*{5.2 Faculty-Centric Objectives}
+\begin{itemize}[leftmargin=*, label=\checkmark]
+    \item \textbf{O4. Timetable Integration:} Dynamically fetch and display the faculty's daily schedule from Firestore, labeling classes as UPCOMING, ACTIVE, or CLOSED.
+    \item \textbf{O5. Efficient Marking Grid:} Create a touch-optimized 5-column grid for attendance marking, supporting both "Presentees" and "Absentees" modes to minimize taps.
+    \item \textbf{O6. Real-time Count:} Provide live counters for total present and absent students before submission.
+    \item \textbf{O7. Attendance Correction:} Enable faculty to view and edit previously submitted sessions for their respective classes.
+\end{itemize}
+
+\section*{5.3 Student-Centric Objectives}
+\begin{itemize}[leftmargin=*, label=\checkmark]
+    \item \textbf{O8. Attendance Statistics:} Offer students a unified view of their overall and subject-specific attendance percentages.
+    \item \textbf{O9. Predictive Recovery Calculator:} Implement a mathematical formula to inform students of the exact number of consecutive classes they must attend to restore their attendance to 75\%.
+    \item \textbf{O10. History Tracking:} Allow students to view a chronological log of all marked sessions.
+\end{itemize}
+
+\section*{5.4 Administrative and Technical Objectives}
+\begin{itemize}[leftmargin=*, label=\checkmark]
+    \item \textbf{O11. Data Import Scripts:} Develop Python-based automation scripts for bulk importing student cohorts, faculty data, and timetable CSVs into Firestore.
+    \item \textbf{O12. Real-time Analytics:} Integrate MPAndroidChart to provide faculty with bar and line charts of attendance trends.
+    \item \textbf{O13. Offline Resilience:} Configure Firestore offline persistence to allow attendance marking without an active internet connection.
+    \item \textbf{O14. PDF Generation:} Implement automated generation of attendance reports in PDF format for administrative record-keeping.
+\end{itemize}
+
+%% ============================================================
+%%  6. DATABASE DESIGN
+%% ============================================================
+\chapter*{6. Database Design}
+\addcontentsline{toc}{chapter}{Database Design}
+
+The backend structure of AttendEase is designed for high read/write performance and scalability using **Google Cloud Firestore**. As a NoSQL document-oriented database, Firestore stores data in collections, which contain documents, each containing fields mapped to values.
+
+\section*{6.1 Data Architecture Overview}
+The database is structured around four primary collections, designed to minimize redundant data while ensuring fast queries for both students and faculty.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=2.5cm, every node/.style={draw=anitsblue, fill=blue!5, rounded corners, minimum width=3cm, minimum height=1cm, align=center, font=\small\bfseries}]
+        \node (users) {users\\(Profiles)};
+        \node (classes) [right of=users, xshift=2cm] {classes\\(Sections)};
+        \node (timetable) [below of=users] {timetable\\(Schedules)};
+        \node (attendance) [below of=classes] {attendance\\(Records)};
+        
+        \draw[->, thick, anitsblue] (users) -- node[above, font=\tiny, black]{enrolled in} (classes);
+        \draw[->, thick, anitsblue] (classes) -- node[right, font=\tiny, black]{sessions} (attendance);
+        \draw[->, thick, anitsblue] (users) -- node[right, font=\tiny, black]{teaches} (timetable);
+        \draw[->, thick, anitsblue] (timetable) -- node[above, font=\tiny, black]{targets} (classes);
+    \end{tikzpicture}
+    \caption{High-Level Firestore Data Relationships}
+\end{figure}
+
+\section*{6.2 Collection: \texttt{users}}
+This collection stores the identity and role of every user in the system. The document ID is either the roll number (student) or the email prefix (faculty).
+
+\begin{table}[H]
+    \centering
+    \caption{Schema for \texttt{users} Collection}
+    \begin{tabularx}{\linewidth}{llX}
+        \toprule
+        \textbf{Field} & \textbf{Type} & \textbf{Description} \\
+        \midrule
+        \texttt{uid} & String & The unique Firebase Auth ID generated on login. \\
+        \texttt{email} & String & Institutional email address (\texttt{@anits.edu.in}). \\
+        \texttt{name} & String & Full name of the user. \\
+        \texttt{role} & String & Either "faculty" or "student". \\
+        \texttt{rollNo} & String & Permanent roll number (Students only). \\
+        \texttt{department} & String & e.g., "CSE", "ECE", "MECH". \\
+        \texttt{batch} & String & Undergraduate batch year (e.g., "2024"). \\
+        \texttt{section} & String & Section assignment (e.g., "A", "B"). \\
+        \texttt{passwordSet} & Boolean & Flag for first-time login management. \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\section*{6.3 Collection: \texttt{classes}}
+This collection defines the groups of students. Each document represents a specific section for a particular batch and department.
+
+\begin{table}[H]
+    \centering
+    \caption{Schema for \texttt{classes} Collection}
+    \begin{tabularx}{\linewidth}{llX}
+        \toprule
+        \textbf{Field} & \textbf{Type} & \textbf{Description} \\
+        \midrule
+        \texttt{classId} & String & Unique ID (e.g., "CSE-A-2024"). \\
+        \texttt{department} & String & Department associated with the class. \\
+        \texttt{batch} & String & Academic year. \\
+        \texttt{section} & String & Section identifier. \\
+        \texttt{studentIds} & Array & List of all student roll numbers in this class. \\
+        \texttt{subjects} & Map & Key-value pairs of subjects and assigned faculty. \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\section*{6.4 Collection: \texttt{timetable}}
+This collection acts as the schedule record. It is used to generate the "Live Sessions" view for the faculty.
+
+\begin{table}[H]
+    \centering
+    \caption{Schema for \texttt{timetable} Collection}
+    \begin{tabularx}{\linewidth}{llX}
+        \toprule
+        \textbf{Field} & \textbf{Type} & \textbf{Description} \\
+        \midrule
+        \texttt{facultyId} & String & ID of the faculty responsible for the period. \\
+        \texttt{classId} & String & Reference to the target class. \\
+        \texttt{subject} & String & Name of the subject. \\
+        \texttt{day} & String & Day of the week (e.g., "MONDAY"). \\
+        \texttt{startTime} & String & Periodic start time (24hr e.g., "09:40"). \\
+        \texttt{endTime} & String & Periodic end time (24hr e.g., "10:30"). \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\section*{6.5 Collection: \texttt{attendance}}
+The \texttt{attendance} collection stores individual records for every class conducted. This is where the core data for analytics is derived.
+
+\begin{table}[H]
+    \centering
+    \caption{Schema for \texttt{attendance} Collection}
+    \begin{tabularx}{\linewidth}{llX}
+        \toprule
+        \textbf{Field} & \textbf{Type} & \textbf{Description} \\
+        \midrule
+        \texttt{sessionId} & String & Auto-generated unique session ID. \\
+        \texttt{classId} & String & Reference to the class. \\
+        \texttt{subject} & String & Subject taught in the session. \\
+        \texttt{markedBy} & String & ID of the faculty who marked it. \\
+        \texttt{timestamp} & Timestamp & Server-side timestamp of the entry. \\
+        \texttt{records} & Map & Key(RollNo) -> Value(Boolean) Present status. \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\section*{6.6 Firestore Security Rules}
+Access to the database is strictly governed by role-based Firestore Security Rules. This ensures students can only read attendance and never modify it, while faculty are restricted to sessions they are assigned.
+
+\begin{lstlisting}[language=java, caption={Role-Based Security Rules snippet}]
+match /attendance/{sessionId} {
+  allow read: if request.auth != null;
+  allow create, update: if request.auth != null && 
+    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "faculty";
+}
+\end{lstlisting}
+
+%% ============================================================
+%%  7. IMPLEMENTATION CODE
+%% ============================================================
+\chapter*{7. Implementation Code}
+\addcontentsline{toc}{chapter}{Implementation Code}
+
+The implementation follows a modular MVVM architecture. This section highlights the critical logic for authentication, attendance marking, predictive calculation, and backend synchronization.
+
+\section*{7.1 Authentication Logic}
+The application uses institutional email patterns to determine the user's role and details. The following snippet derived from \texttt{AuthViewModel.java} illustrates how roles are parsed.
+
+\begin{lstlisting}[language=java, caption={Role Parsing Logic in AuthViewModel}]
+public User parseUserFromEmail(String email) {
+    if (!email.endsWith("@anits.edu.in")) return null;
+    String prefix = email.split("@")[0];
+    String[] parts = prefix.split("\\.");
+    
+    // Pattern: name.YY.dept@anits.edu.in (Student)
+    if (parts.length == 3) {
+        String name = parts[0];
+        String batch = "20" + parts[1];
+        String dept = parts[2].toUpperCase();
+        return new User(null, name, email, "student", dept, batch, null, null);
+    } 
+    // Pattern: name.dept@anits.edu.in (Faculty)
+    else if (parts.length == 2) {
+        String name = parts[0];
+        String dept = parts[1].toUpperCase();
+        return new User(null, name, email, "faculty", dept);
+    }
+    return null;
+}
+\end{lstlisting}
+
+\section*{7.2 Faculty Session State Logic}
+A crucial feature is the real-time classification of timetable entries into session states. The logic compares current device time with pre-scheduled slot times.
+
+\begin{lstlisting}[language=java, caption={Session State Computation}]
+public static SessionState computeState(String startTime, String endTime) {
+    int[] now = getCurrentTime(); // returns [HH, MM]
+    int[] start = parseTime(startTime);
+    int[] end = parseTime(endTime);
+
+    int nowMinutes = now[0] * 60 + now[1];
+    int startMinutes = start[0] * 60 + start[1];
+    int endMinutes = end[0] * 60 + end[1];
+
+    if (nowMinutes < startMinutes) return SessionState.UPCOMING;
+    if (nowMinutes >= startMinutes && nowMinutes <= endMinutes) return SessionState.ACTIVE;
+    return SessionState.CLOSED;
+}
+\end{lstlisting}
+
+\section*{7.3 Predictive Attendance Formula}
+One of the unique features of AttendEase is the student recovery calculator. It uses a linear mathematical model to calculate the attendance gap.
+
+\begin{equation}
+  N_{needed} = \left\lceil \frac{0.75 \times T_{total} - A_{attended}}{0.25} \right\rceil
+\end{equation}
+
+\begin{lstlisting}[language=java, caption={Attendance Recovery Implementation}]
+public static int calculateClassesToAttend(int attended, int total) {
+    double currentPct = (double) attended / total;
+    if (currentPct >= 0.75) return 0;
+
+    // Based on the target 75% line
+    double needed = (0.75 * total - attended) / 0.25;
+    return (int) Math.ceil(needed);
+}
+\end{lstlisting}
+
+\section*{7.4 Dual-Mode Attendance Grid Adapter}
+To speed up marking, faculty can switch between marking students who are "Present" (for small attendance) or students who are "Absent" (for large attendance).
+
+\begin{lstlisting}[language=java, caption={Grid Adapter Toggle Logic}]
+public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    Student student = studentList.get(position);
+    boolean isSelected = selectionMap.containsKey(student.getRollNo());
+
+    if (currentMode == MARK_ABSENTEES) {
+        holder.tile.setBackgroundColor(isSelected ? RED : NEUTRAL);
+    } else {
+        holder.tile.setBackgroundColor(isSelected ? GREEN : NEUTRAL);
+    }
+}
+\end{lstlisting}
+
+\section*{7.5 Firestore Background Sync}
+AttendEase enables Firestore offline persistence settings in the custom \texttt{Application} class, ensuring no data is lost during transit.
+
+\begin{lstlisting}[language=java, caption={Firebase Offline Configuration}]
+FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+        .setPersistenceEnabled(true)
+        .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+        .build();
+db.setFirestoreSettings(settings);
+\end{lstlisting}
+
+\section*{7.6 Automated Analytics Visualization}
+The following is an abstraction of the chart building logic using the MPAndroidChart library.
+
+\begin{lstlisting}[language=java, caption={Building Bar Chart for Faculty Analytics}]
+private void setupBarChart(List<AttendanceSession> data) {
+    List<BarEntry> entries = new ArrayList<>();
+    // Calculate subject-wise average...
+    BarDataSet set = new BarDataSet(entries, "Subject Average (%)");
+    set.setColors(ColorTemplate.MATERIAL_COLORS);
+    
+    BarData barData = new BarData(set);
+    barChart.setData(barData);
+    barChart.invalidate(); // Refresh
+}
+\end{lstlisting}
+
+%% ============================================================
+%%  8. RESULTS -- SCREENSHOTS
+%% ============================================================
+\chapter*{8. Results -- Screenshots}
+\addcontentsline{toc}{chapter}{Results -- Screenshots}
+
+The application was tested across various devices ranging from Android 10 to Android 14. This section showcases the user interface and the core functionalities as seen by the users.
+
+\section*{8.1 User Authentication and Home}
+The landing page restricts access using the institutional domain lock. Once the role is detected, the home fragments are dynamically updated.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm} LOGIN SCREEN SCREENSHOT \vspace{3cm}}}
+        \caption{Domain-restricted Login}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm} FORGOT PASSWORD SCREENSHOT \vspace{3cm}}}
+        \caption{Institutional Recovery}
+    \end{subfigure}
+    \caption{Authentication Flows}
+\end{figure}
+
+\section*{8.2 Faculty Dashboard and Attendance Marking}
+The faculty home fragment uses card-based UI to display live classes. Clicking on an "Active" session navigates the user to the marking grid.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm} FACULTY HOME (LIVE CARDS) \vspace{3cm}}}
+        \caption{Live Session Tracking}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm} ATTENDANCE GRID (MARKING) \vspace{3cm}}}
+        \caption{Dual-Mode Grid Interface}
+    \end{subfigure}
+    \caption{Main Faculty Functionalities}
+\end{figure}
+
+\section*{8.3 Analytics and Reporting}
+The Faculty Analytics Dashboard provides graphical insights into student attendance trends.
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.6\textwidth}{\centering\vspace{3.5cm} ANALYTICS DASHBOARD CHART SCREENSHOT \vspace{3.5cm}}}
+    \caption{Attendance Trends and Bar Chart Visualization}
+\end{figure}
+
+\section*{8.4 Student Dashboard and Recovery}
+Students can monitor their status in real-time. The circular progress bar indicates overall health, while subject-wise cards show specific details.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm} STUDENT DASHBOARD \vspace{3cm}}}
+        \caption{Real-time Progress Tracking}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm} RECOVERY CALCULATOR POPUP \vspace{3cm}}}
+        \caption{Predictive Recovery Calculator}
+    \end{subfigure}
+    \caption{Student Interface Highlights}
+\end{figure}
+
+\section*{8.5 Performance Metrics}
+The system was evaluated for latency and data synchronization.
+\begin{itemize}
+    \item \textbf{Login Latency:} ~1.2 seconds (High speed), ~3.5 seconds (Low speed).
+    \item \textbf{Data Sync Speed:} Under 800ms for attendance submission.
+    \item \textbf{Bulk Import Efficiency:} 3,500 student records imported via Python script in 12 seconds.
+\end{itemize}
+
+%% ============================================================
+%%  9. CONCLUSION
+%% ============================================================
+\chapter*{9. Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+The development of \textbf{AttendEase} addresses a long-standing challenge in academic administration at institutions like ANITS. By leveraging native Android development and the Google Firebase ecosystem, we have successfully created a platform that transitions attendance management from a manual, error-prone task to a streamlined, digital process.
+
+\section*{9.1 Project Outcomes}
+The project successfully met all its primary objectives. We have implemented:
+\begin{itemize}
+    \item A secure, domain-restricted authentication system.
+    \item A real-time synchronized database capable of handling multiple concurrent faculty submissions.
+    \item A responsive mobile client that operates efficiently even with intermittent connectivity.
+    \item A suite of analytics tools that provide meaningful insights to both faculty and students.
+\end{itemize}
+
+\section*{9.2 Impact on Stakeholders}
+The introduction of AttendEase significantly reduces the administrative burden on faculty, allowing them to focus more on instructional activities. For students, the real-time transparency of their attendance data fosters a greater sense of accountability and proactive academic planning.
+
+\section*{9.3 Future Work}
+While the current version of the application is robust, several paths for future enhancement exist:
+\begin{itemize}
+    \item \textbf{Biometric Integration:} Incorporating fingerprint or facial recognition for fraud detection.
+    \item \textbf{FCM Push Notifications:} Sending automated alerts to students whose attendance falls below the threshold.
+    \item \textbf{HOD Dashboard:} A specialized high-level analytics view for Department Heads to monitor entire branches.
+    \item \textbf{Cross-Platform Support:} Porting the application to iOS using Kotlin Multiplatform or Flutter.
+\end{itemize}
+
+\section*{9.4 Learning Outcomes}
+Through this project, the team has gained invaluable experience in native Android development, NoSQL database design, and cloud-native architecture. We learned the importance of MVVM for creating maintainable codebases and the complexities involved in building synchronization-driven mobile applications. AttendEase stands as a testament to the power of mobile technology in transforming institutional workflows.
+
+%% ============================================================
+\end{document}

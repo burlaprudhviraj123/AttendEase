@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AttendEase Primary Colors (Desaturated for Dark Mode) -->
+    <color name="primary">#78DBB7</color>
+    <color name="primary_container">#00513B</color>
+    <color name="on_primary">#003828</color>
+    <color name="on_primary_container">#9AEDCF</color>
+    <color name="primary_fixed">#A0F3D4</color>
+
+    <!-- Secondary Colors -->
+    <color name="secondary">#B1CCC0</color>
+    <color name="secondary_container">#2F4C43</color>
+    <color name="on_secondary">#1D352C</color>
+    <color name="on_secondary_container">#C9EADB</color>
+
+    <!-- Tertiary Colors -->
+    <color name="tertiary">#EAB9B0</color>
+    <color name="tertiary_container">#5E2219</color>
+    <color name="on_tertiary">#451109</color>
+    <color name="on_tertiary_container">#FFDAD4</color>
+
+    <!-- Surface & Background -->
+    <color name="background">#111413</color>
+    <color name="on_background">#E0E3E1</color>
+    <color name="surface">#111413</color>
+    <color name="on_surface">#E0E3E1</color>
+    <color name="surface_variant">#3F4944</color>
+    <color name="on_surface_variant">#BFC9C3</color>
+    <color name="surface_container">#1D211F</color>
+    <color name="surface_container_low">#191C1B</color>
+    <color name="surface_container_high">#272B29</color>
+    <color name="surface_container_highest">#323634</color>
+    <color name="surface_container_lowest">#0C0F0E</color>
+
+    <!-- Error Colors -->
+    <color name="error">#FFB4AB</color>
+    <color name="error_container">#93000A</color>
+    <color name="on_error">#690005</color>
+
+    <!-- Status Colors -->
+    <color name="success">#82D8B3</color>
+    <color name="warning">#E7C429</color>
+
+    <!-- Outline -->
+    <color name="outline">#89938E</color>
+    <color name="outline_variant">#3F4944</color>
+</resources>

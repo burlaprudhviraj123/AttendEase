@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/surface"
+            android:elevation="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="20dp">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/bg_circle_check"
+                android:padding="4dp"
+                android:src="@drawable/college_logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="My Attendance"
+                android:textColor="@color/on_surface"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Alert banner (hidden when all green) -->
+        <LinearLayout
+            android:id="@+id/alert_banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/tertiary_container"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_warning"
+                android:drawablePadding="6dp"
+                android:text="Low Attendance Alert"
+                android:textColor="@color/on_tertiary_container"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/alert_banner_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/on_tertiary_container"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <!-- Calculator FAB row -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Subjects"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/calculator_button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/calculator_button"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Calculator"
+                android:textAllCaps="false"
+                android:textSize="11sp"
+                app:cornerRadius="16dp"
+                app:icon="@drawable/ic_calculate"
+                app:iconSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Attendance Graph (X: Subject, Y: %) -->
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/attendance_bar_chart"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/surface_container_low" />
+
+        <!-- Subject list -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/subject_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="12dp" />
+
+        <!-- Session log (drill-down) -->
+        <TextView
+            android:id="@+id/session_log_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/session_log_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="24dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

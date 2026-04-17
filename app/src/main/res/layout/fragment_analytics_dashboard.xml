@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title bar -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:elevation="4dp"
+            android:padding="20dp"
+            android:text="Analytics Dashboard"
+            android:textColor="@color/on_background"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/loading_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
+
+        <!-- Class filter chips -->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/class_filter_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:singleSelection="true" />
+
+        <!-- Analytics title -->
+        <TextView
+            android:id="@+id/analytics_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/on_background"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Summary stat cards -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="12dp">
+
+            <!-- Total Sessions -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/surface_container_lowest"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="SESSIONS" android:textSize="9sp" android:textStyle="bold"
+                        android:textColor="@color/on_surface_variant" />
+                    <TextView android:id="@+id/total_sessions_value" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="—" android:textSize="22sp"
+                        android:textStyle="bold" android:textColor="@color/on_background" android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Avg Attendance -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/surface_container_lowest"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="AVG ATTEND." android:textSize="9sp" android:textStyle="bold"
+                        android:textColor="@color/on_surface_variant" />
+                    <TextView android:id="@+id/avg_attendance_value_dash" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="—" android:textSize="22sp"
+                        android:textStyle="bold" android:textColor="@color/primary" android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- At Risk Count -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/surface_container_lowest"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="AT RISK" android:textSize="9sp" android:textStyle="bold"
+                        android:textColor="@color/on_surface_variant" />
+                    <TextView android:id="@+id/at_risk_value" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="—" android:textSize="22sp"
+                        android:textStyle="bold" android:textColor="@color/error" android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/attendance_pie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_margin="16dp"
+            android:background="@color/surface_container_lowest" />
+
+        <!-- Subject bars section -->
+        <TextView
+            android:id="@+id/subjects_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="8dp"
+            android:text="YOUR SUBJECT PERFORMANCE"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1" />
+
+        <LinearLayout
+            android:id="@+id/subject_bars_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp" />
+
+        <!-- Safe Students Section (Collapsible) -->
+        <LinearLayout
+            android:id="@+id/safe_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/safe_students_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SAFE STUDENTS (>= 75%)"
+                android:textColor="@color/success"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <ImageView
+                android:id="@+id/safe_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_expand_more"
+                app:tint="@color/outline" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/safe_students_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp"
+            android:visibility="gone" />
+
+        <!-- At Risk Students Section (Collapsible) -->
+        <LinearLayout
+            android:id="@+id/at_risk_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/at_risk_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="STUDENTS AT RISK (&lt; 75%)"
+                android:textColor="@color/error"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <ImageView
+                android:id="@+id/at_risk_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_expand_more"
+                app:tint="@color/outline" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/at_risk_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/export_class_pdf_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:text="Class Report"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/ic_school"
+                style="@style/Widget.Material3.Button.TonalButton" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/export_subject_pdf_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:text="Subject Report"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/ic_bar_chart" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

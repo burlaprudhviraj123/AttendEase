@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <!-- Auth -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.attendease.ui.auth.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_setPasswordFragment"
+            app:destination="@id/setPasswordFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_studentHomeFragment"
+            app:destination="@id/studentHomeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_facultyHomeFragment"
+            app:destination="@id/facultyHomeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/setPasswordFragment"
+        android:name="com.example.attendease.ui.auth.SetPasswordFragment"
+        android:label="Set Password"
+        tools:layout="@layout/fragment_set_password">
+        <action
+            android:id="@+id/action_setPasswordFragment_to_studentHomeFragment"
+            app:destination="@id/studentHomeFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_setPasswordFragment_to_facultyHomeFragment"
+            app:destination="@id/facultyHomeFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.attendease.ui.auth.ForgotPasswordFragment"
+        android:label="Forgot Password"
+        tools:layout="@layout/fragment_forgot_password" />
+
+    <!-- Student Screens -->
+    <fragment
+        android:id="@+id/studentHomeFragment"
+        android:name="com.example.attendease.ui.student.StudentHomeFragment"
+        android:label="Student Home"
+        tools:layout="@layout/fragment_student_home">
+        <action
+            android:id="@+id/action_studentHomeFragment_to_attendanceFragment"
+            app:destination="@id/attendanceFragment" />
+        <action
+            android:id="@+id/action_studentHomeFragment_to_sessionHistoryFragment"
+            app:destination="@id/sessionHistoryFragment" />
+        <action
+            android:id="@+id/action_studentHomeFragment_to_profileFragment"
+            app:destination="@id/studentProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/attendanceFragment"
+        android:name="com.example.attendease.ui.student.AttendanceFragment"
+        android:label="My Attendance"
+        tools:layout="@layout/fragment_attendance" />
+
+    <fragment
+        android:id="@+id/sessionHistoryFragment"
+        android:name="com.example.attendease.ui.student.SessionHistoryFragment"
+        android:label="Session History"
+        tools:layout="@layout/fragment_session_history" />
+
+    <!-- Faculty Screens -->
+    <fragment
+        android:id="@+id/facultyHomeFragment"
+        android:name="com.example.attendease.ui.faculty.FacultyHomeFragment"
+        android:label="Faculty Home"
+        tools:layout="@layout/fragment_faculty_home">
+        <action
+            android:id="@+id/action_facultyHomeFragment_to_markAttendanceFragment"
+            app:destination="@id/markAttendanceFragment" />
+        <action
+            android:id="@+id/action_facultyHomeFragment_to_myClassesFragment"
+            app:destination="@id/myClassesFragment" />
+        <action
+            android:id="@+id/action_facultyHomeFragment_to_analyticsDashboardFragment"
+            app:destination="@id/analyticsDashboardFragment" />
+        <action
+            android:id="@+id/action_facultyHomeFragment_to_profileFragment"
+            app:destination="@id/facultyProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/markAttendanceFragment"
+        android:name="com.example.attendease.ui.faculty.MarkAttendanceFragment"
+        android:label="Mark Attendance"
+        tools:layout="@layout/fragment_mark_attendance" />
+
+    <fragment
+        android:id="@+id/myClassesFragment"
+        android:name="com.example.attendease.ui.faculty.MyClassesFragment"
+        android:label="My Classes"
+        tools:layout="@layout/fragment_my_classes" />
+
+    <fragment
+        android:id="@+id/analyticsDashboardFragment"
+        android:name="com.example.attendease.ui.faculty.AnalyticsDashboardFragment"
+        android:label="Analytics"
+        tools:layout="@layout/fragment_analytics_dashboard" />
+
+    <!-- Profile (Student) -->
+    <fragment
+        android:id="@+id/studentProfileFragment"
+        android:name="com.example.attendease.ui.auth.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Profile (Faculty) -->
+    <fragment
+        android:id="@+id/facultyProfileFragment"
+        android:name="com.example.attendease.ui.auth.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

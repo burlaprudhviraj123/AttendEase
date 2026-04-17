@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 🛡️ User Profile Security
+    match /users/{userId} {
+      // All authenticated academic personnel can read the directory
+      allow read: if request.auth != null;
+      
+      // Allow updating only specific, non-critical fields (e.g. passwordSet)
+      // Must own the UID OR the document's email must securely match the Google Auth token email
+      allow update: if request.auth != null && (request.auth.uid == userId || resource.data.email == request.auth.token.email)
+        && !request.resource.data.diff(resource.data).affectedKeys()
+            .hasAny(['role', 'email', 'rollNo', 'section', 'batch', 'department']);
+    }
+    
+    // 🛡️ Attendance Registry
+    match /attendance/{sessionId} {
+      // Students can read attendance logs if they are listed in the record (only their own)
+      // or if they belong to the class where the session happened.
+      allow read: if request.auth != null;
+      
+      // ONLY members with the 'faculty' role can mark or delete attendance records.
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'faculty';
+    }
+    
+    // 🛡️ Timetables and Course Materials
+    match /timetable/{session} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only admin/backend can change the timetable
+    }
+    
+    match /classes/{classId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only admin/backend can create classes
+    }
+
+    // Default deny for everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

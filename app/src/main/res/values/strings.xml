@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">AttendEase</string>
+    <string name="default_web_client_id" translatable="false">589020153996-8hg8dgnbmrdgofo2ir76okr21i5uln66.apps.googleusercontent.com</string>
+    <string name="student_welcome_format">Welcome, %1$s!</string>
+    <string name="percentage_format">%1$d%%</string>
+    <string name="status_exceptional">EXCEPTIONAL</string>
+    <string name="status_good">GOOD</string>
+    <string name="status_at_risk">AT RISK</string>
+    <string name="forgot_password_title">Reset your password</string>
+    <string name="forgot_password_subtitle">Enter the email address associated with your AttendEase account and we\'ll send you a secure link to reset your password.</string>
+    <string name="institutional_email_label">INSTITUTIONAL EMAIL</string>
+    <string name="send_reset_link">Send Reset Link</string>
+    <string name="back_to_login">Back to login</string>
+    <string name="check_inbox_title">Check your inbox</string>
+    <string name="check_inbox_subtitle">We\'ve sent a password recovery link to your email. Please click the link to verify your identity and set a new password.</string>
+</resources>
