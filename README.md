@@ -43,11 +43,6 @@ Most attendance apps are simple counters that require manual entry of subjects a
 
 ---
 
-## 📸 Screenshots
-
-*(Add your screenshots here to make the README pop!)*
-
----
 
 ## 🏁 Getting Started
 
